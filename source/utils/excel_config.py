@@ -12,7 +12,7 @@ import pandas as pd
 pd.set_option('display.max_columns', None)
 
 
-def get_list_by_column(file_name='../限售股解禁公司明细-20210909.xlsx', column_name='代码', encoding='gb18030'):
+def get_list_by_column(file_name='./data/限售股解禁公司明细-20210909.xlsx', column_name='代码', encoding='gb18030'):
     """Get stock name list from a table.
 
     Returns:
