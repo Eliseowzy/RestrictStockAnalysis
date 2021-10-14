@@ -7,42 +7,47 @@
 @time: 9/29/2021
 @version: 1.0
 """
-import pandas as pd
-import tushare as ts
+
+import datetime
+
+from source.utils import data_preprocessor
+from source.utils import stock_index_extracter
 
 
-def get_stock_change_detail_info(stock_code='301013.SZ', start_date='20210920', end_date='20210929'):
-    """Get stock change price detail information.
-
-    Returns:
-        pandas.DataFrame 'stock_change_detail_info': A stock price change detail info.
-    """
-    pd.set_option('display.max_columns', None)
-    pro = ts.pro_api()
-    stock_change_detail_info = pro.query('daily', ts_code=stock_code, start_date=start_date, end_date=end_date)
-    stock_change_detail_info = stock_change_detail_info.sort_values(by='trade_date', ascending=True)
-    return stock_change_detail_info
+def calculate_basic_eps():
+    stocks = data_preprocessor.get_list_by_column(file_path='../data/聚类数据集.xlsx', column_name='代码')
+    for stock in stocks:
+        try:
+            tmp_basic_eps = stock_index_extracter.get_company_latest_basic_eps(stock)
+            print(tmp_basic_eps)
+        except IndexError:
+            print("")
 
 
-def get_stock_change_ratio(stock_code='301013.SZ', start_date='20210920', end_date='20210929'):
-    """Get stock change price ratio.
+def calculate_return_rate(day_slot=90):
+    stocks = data_preprocessor.get_list_by_column(file_path='../data/聚类数据集.xlsx', column_name='代码')
 
-    Returns:
-        pandas.DataFrame 'stock_change_detail_info': A stock price change detail info.
-    """
-    stock_change_detail_info = get_stock_change_detail_info(stock_code=stock_code, start_date=start_date,
-                                                            end_date=end_date)
-    size = len(stock_change_detail_info['close'])
-    # print(stock_change_detail_info)
-    if size != 0:
-        # print(stock_change_detail_info)
-        stock_change = stock_change_detail_info['close'][0] - stock_change_detail_info['close'][size - 1]
-        # print(stock_change)
-        stock_change_ratio = stock_change / stock_change_detail_info['close'][0]
-        # print(stock_change_ratio)
-        # print(stock_code)
-        return stock_change_ratio
+    release_dates = data_preprocessor.get_list_by_column(file_path='../data/聚类数据集.xlsx', column_name='解禁日期')
+    # print(stocks)
+    stock_change_ratio_list = {}
+
+    for i in range(len(stocks)):
+        start_date = datetime.datetime.date(release_dates[i])
+        delta = datetime.timedelta(days=day_slot)
+        end_date = start_date + delta
+
+        start_date = datetime.datetime.strftime(start_date, "%Y%m%d")
+        end_date = datetime.datetime.strftime(end_date, "%Y%m%d")
+        tmp_ratio = stock_index_extracter.get_stock_change_ratio(stock_code=stocks[i], start_date=start_date,
+                                                                 end_date=end_date)
+        # print(stocks[i])
+        if tmp_ratio:
+            print("{}\t{}".format(stocks[i], tmp_ratio))
+            # print(tmp_ratio)
+            # print(stocks[i])
+        else:
+            print('{}\t'.format(stocks[i]))
 
 
-# print(get_stock_change_info(stock_code='301013.SZ', start_date='20210920', end_date='20210929'))
-get_stock_change_ratio()
+if __name__ == "__main__":
+    calculate_basic_eps()

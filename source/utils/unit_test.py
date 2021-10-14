@@ -1,3 +1,3 @@
-import excel_config
+from source.utils import data_preprocessor
 
-print(excel_config.get_list_by_column(file_name='../../data/聚类数据集.xlsx', column_name='代码'))
+print(data_preprocessor.get_list_by_column(file_path='../../data/聚类数据集.xlsx', column_name='代码'))
