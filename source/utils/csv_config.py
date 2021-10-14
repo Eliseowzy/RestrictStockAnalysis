@@ -1,3 +1,15 @@
+
+# !/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+"""
+@author: Wang Zhiyi
+@function: implement models based on model interface
+@file: kmeans_cluster.py
+@time: 14/10/2021
+@version: 1.0
+"""
+
 import pandas as pd
 
 
