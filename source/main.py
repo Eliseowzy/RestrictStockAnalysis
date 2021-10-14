@@ -10,7 +10,7 @@
 import utils.excel_config as excel_config
 import utils.stock_calculator as stock_calculator
 
-stocks = excel_config.get_list_by_column(file_name='../data/restrict_stock_detail_20210909.csv', column_name='代码', encoding='gb18030')
+stocks = excel_config.get_list_by_column(file_name='../data/cluster_dataset.csv', column_name='代码', encoding='gb18030')
 # print(stocks)
 stock_change_ratio_list = {}
 

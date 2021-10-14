@@ -35,13 +35,13 @@ def get_stock_change_ratio(stock_code='301013.SZ', start_date='20210920', end_da
     size = len(stock_change_detail_info['close'])
     # print(stock_change_detail_info)
     if size != 0:
-        stock_change = stock_change_detail_info['close'][size - 1] - stock_change_detail_info['close'][0]
+        # print(stock_change_detail_info)
+        stock_change = stock_change_detail_info['close'][0] - stock_change_detail_info['close'][size - 1]
+        # print(stock_change)
         stock_change_ratio = stock_change / stock_change_detail_info['close'][0]
         # print(stock_change_ratio)
         # print(stock_code)
         return stock_change_ratio
-
-    #
 
 
 # print(get_stock_change_info(stock_code='301013.SZ', start_date='20210920', end_date='20210929'))
