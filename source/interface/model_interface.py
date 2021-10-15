@@ -15,26 +15,20 @@ from abc import abstractmethod, ABCMeta
 class model_interface(metaclass=ABCMeta):
 
     @abstractmethod
+    def __init__(self):
+        pass
+
+    @abstractmethod
     def __str__(self):
         """Base interface: Convert the models into a human understandable string.
         """
 
     @abstractmethod
-    def train(self, train_set):
-        """Base interface: Train the models
-
-        Args:
-            train_set (pyspark.sql.DataFrame): Train set.
-        """
+    def train(self):
         pass
 
     @abstractmethod
-    def predict(self, test_set):
-        """Base interface: Predict results on test_set.
-
-        Args:
-            test_set (pyspark.sql.DataFrame): Test set.
-        """
+    def predict(self):
         pass
 
     @abstractmethod

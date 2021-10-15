@@ -23,13 +23,20 @@ def get_basic_eps():
 
 def train_model():
     dataset = data_loader.load_dataframe_from_csv("../data/cluster_dataset.csv")
-    features = dataset[
-        ['release_feature', 'release_ratio', '6d_return', '10d_return', '16d_return', '20d_return', '30d_return',
-         '60d_return', '90d_return', 'basic_eps']]
-    KMeans = kmeans_cluster.k_means(data_set=features)
-    KMeans.fit()
-    KMeans.save_model()
-    print(dataset)
+    feature_list = ['release_feature', 'release_ratio', '6d_return', '10d_return',
+                    '16d_return', '20d_return', '30d_return',
+                    '60d_return', '90d_return', 'basic_eps']
+    label = "StockName"
+
+    KMeans = kmeans_cluster.k_means(data_set=dataset, init='random',
+                                    features_list=feature_list, label=label, n_clusters=5, max_iter=100, n_init=100,
+                                    min_sse=10000000000000000)
+    # KMeans.train()
+    # KMeans.save_model(model_path="../models/model_kmeans.pkl")
+    KMeans.load_model(model_path="../models/model_kmeans.pkl")
+    KMeans.predict()
+    # print(KMeans.get_model_brief())
+    print(KMeans.get_predict_result())
 
 
 def main():

@@ -15,11 +15,16 @@ from sklearn.cluster import KMeans
 from source.interface import model_interface
 
 
-class k_means(model_interface):
-    def __init__(self, data_set: pandas.DataFrame = "", init='random', n_clusters=8, max_iter=1000, n_init=100,
+class k_means(model_interface.model_interface):
+    def __init__(self, data_set: pandas.DataFrame = "", init='random', features_list: list = None, label: str = "",
+                 n_clusters=8, max_iter=1000, n_init=100,
                  min_sse=10000000000000000):
+        if features_list is None:
+            features_list = []
         self._name = "k-means"
         self._data_set = data_set
+        self._features_list = features_list
+        self._label = label
         self._init = init
         self._max_iter = max_iter
         self._n_clusters = n_clusters
@@ -29,9 +34,11 @@ class k_means(model_interface):
                                     max_iter=self._max_iter)
         self._predict_result = None
         self._model_brief = {"name": "k-means",
-                             "data_set": str(self._data_set),
+                             # "data_set": str(self._data_set.describe()),
+                             "features": str(self._features_list),
+                             "label": str(self._label),
                              "init": str(self._init),
-                             "max_iter": str(self.max_iter),
+                             "max_iter": str(self._max_iter),
                              "n_clusters": str(self._n_clusters),
                              "n_init": str(self._n_init),
                              "min_sse": str(self._min_sse)}
@@ -46,27 +53,29 @@ class k_means(model_interface):
         return self._model_brief
 
     def train(self):
+        features = self._data_set[self._features_list]
         for _ in range(self._max_iter):
-            self._model_object.fit(self._data_set)
+            print("iteration {}".format(_))
+            self._model_object.fit(features)
             _sse = self._model_object.inertia_
             if _sse < self._min_sse:
                 self._min_sse = _sse
 
-    def predict(self, dataset: pandas.DataFrame, features: list, label: str):
+    def predict(self):
         try:
             self._model_object.labels_
         except AttributeError:
             self.train()
         if self._model_object.labels_ is not None:
-            features = dataset[features]
+            features = self._data_set[self._features_list]
             self._predict_result = self._model_object.predict(features)
-            dataset["cluster_label"] = self._predict_result
-            dataset = dataset.sort_values(by='cluster_label', ascending="False")
-            self._predict_result = dataset[[label, 'cluster_label']]
+            self._data_set["cluster_label"] = self._predict_result
+            dataset = self._data_set.sort_values(by='cluster_label', ascending="False")
+            self._predict_result = dataset[[self._label, 'cluster_label']]
 
-    def save_model(self, model_path="../../model/model.pkl"):
+    def save_model(self, model_path="../../models/model.pkl"):
         joblib.dump(self._model_object, model_path)
 
-    def load_model(self, model_path="../../model/model.pkl"):
+    def load_model(self, model_path="../../models/model.pkl"):
         self._model_object = None
         self._model_object = joblib.load(model_path)
