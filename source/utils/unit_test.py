@@ -20,5 +20,5 @@ class People:
         return self.name
 
 
-a = People("王之义")
+a = People("abc")
 print(a)
