@@ -8,6 +8,7 @@
 @time: 14/10/2021
 @version: 1.0
 """
+import joblib
 import pandas
 from sklearn.cluster import KMeans
 
@@ -26,6 +27,7 @@ class k_means(model_interface):
         self._min_sse = min_sse
         self._model_object = KMeans(n_clusters=self._n_clusters, init=self._init, n_init=self._n_init,
                                     max_iter=self._max_iter)
+        self._predict_result = None
         self._model_brief = {"name": "k-means",
                              "data_set": str(self._data_set),
                              "init": str(self._init),
@@ -37,18 +39,34 @@ class k_means(model_interface):
     def __str__(self):
         return str(self._model_brief)
 
-    def fit(self):
+    def get_predict_result(self):
+        return self._predict_result
+
+    def get_model_brief(self):
+        return self._model_brief
+
+    def train(self):
         for _ in range(self._max_iter):
             self._model_object.fit(self._data_set)
             _sse = self._model_object.inertia_
             if _sse < self._min_sse:
                 self._min_sse = _sse
 
-    def predict(self):
-        pass
+    def predict(self, dataset: pandas.DataFrame, features: list, label: str):
+        try:
+            self._model_object.labels_
+        except AttributeError:
+            self.train()
+        if self._model_object.labels_ is not None:
+            features = dataset[features]
+            self._predict_result = self._model_object.predict(features)
+            dataset["cluster_label"] = self._predict_result
+            dataset = dataset.sort_values(by='cluster_label', ascending="False")
+            self._predict_result = dataset[[label, 'cluster_label']]
 
-    def save_model(self):
-        pass
+    def save_model(self, model_path="../../model/model.pkl"):
+        joblib.dump(self._model_object, model_path)
 
-    def load_model(self):
-        pass
+    def load_model(self, model_path="../../model/model.pkl"):
+        self._model_object = None
+        self._model_object = joblib.load(model_path)

@@ -20,7 +20,7 @@ class model_interface(metaclass=ABCMeta):
         """
 
     @abstractmethod
-    def fit(self, train_set):
+    def train(self, train_set):
         """Base interface: Train the models
 
         Args:

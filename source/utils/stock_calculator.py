@@ -25,9 +25,9 @@ def calculate_basic_eps():
 
 
 def calculate_return_rate(day_slot=90):
-    stocks = data_preprocessor.get_list_by_column(file_path='../data/聚类数据集.xlsx', column_name='代码')
+    stocks = data_preprocessor.get_list_by_column(file_path='../../data/聚类数据集.xlsx', column_name='代码')
 
-    release_dates = data_preprocessor.get_list_by_column(file_path='../data/聚类数据集.xlsx', column_name='解禁日期')
+    release_dates = data_preprocessor.get_list_by_column(file_path='../../data/聚类数据集.xlsx', column_name='解禁日期')
     # print(stocks)
     stock_change_ratio_list = {}
 
@@ -50,4 +50,4 @@ def calculate_return_rate(day_slot=90):
 
 
 if __name__ == "__main__":
-    calculate_basic_eps()
+    calculate_return_rate()

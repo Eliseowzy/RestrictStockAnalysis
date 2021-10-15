@@ -8,14 +8,9 @@
 @time: 14/10/2021
 @version: 1.0
 """
-from source.utils import data_loader
-
-
-def split_dataset(train_ratio=0.75):
-    pass
-
-
 import pandas as pd
+
+from source.utils import data_loader
 
 pd.set_option('display.max_columns', None)
 

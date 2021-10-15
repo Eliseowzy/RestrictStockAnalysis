@@ -1,3 +1,24 @@
-from source.utils import data_preprocessor
+# !/usr/bin/env python
+# -*- coding: utf-8 -*-
 
-print(data_preprocessor.get_list_by_column(file_path='../../data/聚类数据集.xlsx', column_name='代码'))
+"""
+@author: Wang Zhiyi
+@function: unit test for each module
+@file: unit_test.py
+@time: 14/10/2021
+@version: 1.0
+"""
+
+
+class People:
+    def __init__(self, name):
+        self.name = name
+
+    def __str__(self):
+        # res = "对象的名字是{}".format(self.name)
+        # return res
+        return self.name
+
+
+a = People("王之义")
+print(a)
