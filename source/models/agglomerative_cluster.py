@@ -69,6 +69,7 @@ class agglomerative_cluster(model_interface.model_interface):
         self._model_brief["linkage"] = str(self._linkage)
         self._model_brief["label"] = str(self._affinity)
         self._model_brief["n_clusters"] = str(self._n_clusters)
+        # self._n_clusters["n_clusters"] = str(self._n_clusters)
 
     def get_model_brief(self):
         return self._model_brief
