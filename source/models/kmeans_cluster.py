@@ -96,6 +96,7 @@ class k_means(model_interface.model_interface):
             self._data_set["cluster_label"] = self._predict_result
             dataset = self._data_set.sort_values(
                 by='cluster_label', ascending="False")
+            dataset.to_excel("../data/data_result.xlsx")
             self._predict_result = dataset[[self._label, 'cluster_label']]
 
     def save_model(self, model_path="../../models/km_model.pkl"):
@@ -114,9 +115,9 @@ class k_means(model_interface.model_interface):
         self._model_brief["n_clusters"] = str(self._n_clusters)
         self._model_brief["n_init"] = str(self._n_init)
 
-    def model_selection(self):
+    def model_selection(self, max_cluster):
         model_scores = [KMeans(n_clusters=i + 2).fit(self._data_set[self._features_list]).inertia_ for i in
-                        range(self._max_iter)]
+                        range(max_cluster)]
         cluster_cont = numpy.arange(2, self._max_iter + 2)
         seaborn.lineplot(cluster_cont, model_scores)
         print(cluster_cont)

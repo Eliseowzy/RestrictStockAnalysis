@@ -11,6 +11,7 @@
 from models import agglomerative_cluster
 from models import kmeans_cluster
 from utils import data_loader
+from utils import data_visualizer
 from utils import stock_calculator
 
 
@@ -29,17 +30,18 @@ def train_model(model_name="km"):
                     '60d_return', '90d_return', 'basic_eps']
 
     label = "StockName"
+    data_visualizer.heatmap(data_set[feature_list])
     if model_name == "km":
         KMeans = kmeans_cluster.k_means(data_set=data_set, init='random',
                                         features_list=feature_list, label=label, n_clusters=5, max_iter=20, n_init=100,
                                         min_sse=10000000000000000)
-        # KMeans.train()
-        # KMeans.save_model(model_path="../models/model_kmeans.pkl")
-        # KMeans.load_model(model_path="../models/model_kmeans.pkl")
+        KMeans.train()
+        KMeans.save_model(model_path="../models/model_kmeans.pkl")
+        KMeans.load_model(model_path="../models/model_kmeans.pkl")
         # KMeans.predict()
-        KMeans.model_selection()
+        # KMeans.model_selection(max_cluster=20)
         print(KMeans.get_model_brief())
-        # print(KMeans.get_predict_result())
+        print(KMeans.get_predict_result())
     if model_name == "agg":
         Agg = agglomerative_cluster.agglomerative_cluster(data_set=data_set, features_list=feature_list, label=label,
                                                           n_clusters=5,
