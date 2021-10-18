@@ -10,15 +10,3 @@
 """
 
 
-class People:
-    def __init__(self, name):
-        self.name = name
-
-    def __str__(self):
-        # res = "对象的名字是{}".format(self.name)
-        # return res
-        return self.name
-
-
-a = People("abc")
-print(a)

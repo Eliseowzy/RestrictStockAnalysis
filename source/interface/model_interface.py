@@ -25,16 +25,20 @@ class model_interface(metaclass=ABCMeta):
 
     @abstractmethod
     def train(self):
+        """Base interface: Predefine model train interface.
+        """
         pass
 
     @abstractmethod
     def predict(self):
+        """Base interface: Predefine model predict interface.
+        """
         pass
 
     @abstractmethod
     def save_model(self, path):
         """
-        Base interface: Save models
+        Base interface: Predefine model save interface.
         Args:
             path (str): The target path.
         """
@@ -43,7 +47,7 @@ class model_interface(metaclass=ABCMeta):
     @abstractmethod
     def load_model(self, path):
         """
-        Base interface: Load an existing models from a file.
+        Base interface: Predefine model load interface.
         Args:
             path (str): The source path.
         """

@@ -19,6 +19,18 @@ class k_means(model_interface.model_interface):
     def __init__(self, data_set: pandas.DataFrame = "", init='random', features_list: list = None, label: str = "",
                  n_clusters=8, max_iter=1000, n_init=100,
                  min_sse=10000000000000000):
+        """k_means class construction function.
+
+        Args:
+            data_set (pandas.DataFrame, optional): Dataset. Defaults to "".
+            init (str, optional): [description]. Defaults to 'random'.
+            features_list (list, optional): [description]. Defaults to None.
+            label (str, optional): [description]. Defaults to "".
+            n_clusters (int, optional): Number of time the k-means algorithm will be run with different centroid seeds. The final results will be the best output of n_init consecutive runs in terms of inertia. Defaults to 8.
+            max_iter (int, optional): [description]. Defaults to 1000.
+            n_init (int, optional): [description]. Defaults to 100.
+            min_sse (int, optional): [description]. Defaults to 10000000000000000.
+        """
         if features_list is None:
             features_list = []
         self._name = "k-means"
@@ -47,7 +59,11 @@ class k_means(model_interface.model_interface):
         return str(self._model_brief)
 
     def get_predict_result(self):
-        return self._predict_result
+        if self._predict_result is not None:
+            return self._predict_result
+        else:
+            self.predict()
+            return self._predict_result
 
     def get_model_brief(self):
         return self._model_brief
@@ -70,7 +86,8 @@ class k_means(model_interface.model_interface):
             features = self._data_set[self._features_list]
             self._predict_result = self._model_object.predict(features)
             self._data_set["cluster_label"] = self._predict_result
-            dataset = self._data_set.sort_values(by='cluster_label', ascending="False")
+            dataset = self._data_set.sort_values(
+                by='cluster_label', ascending="False")
             self._predict_result = dataset[[self._label, 'cluster_label']]
 
     def save_model(self, model_path="../../models/model.pkl"):

@@ -26,6 +26,7 @@ def train_model():
     feature_list = ['release_feature', 'release_ratio', '6d_return', '10d_return',
                     '16d_return', '20d_return', '30d_return',
                     '60d_return', '90d_return', 'basic_eps']
+
     label = "StockName"
 
     KMeans = kmeans_cluster.k_means(data_set=dataset, init='random',
