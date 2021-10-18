@@ -31,14 +31,15 @@ def train_model(model_name="km"):
     label = "StockName"
     if model_name == "km":
         KMeans = kmeans_cluster.k_means(data_set=data_set, init='random',
-                                        features_list=feature_list, label=label, n_clusters=5, max_iter=100, n_init=100,
+                                        features_list=feature_list, label=label, n_clusters=5, max_iter=20, n_init=100,
                                         min_sse=10000000000000000)
         # KMeans.train()
         # KMeans.save_model(model_path="../models/model_kmeans.pkl")
-        KMeans.load_model(model_path="../models/model_kmeans.pkl")
-        KMeans.predict()
+        # KMeans.load_model(model_path="../models/model_kmeans.pkl")
+        # KMeans.predict()
+        KMeans.model_selection()
         print(KMeans.get_model_brief())
-        print(KMeans.get_predict_result())
+        # print(KMeans.get_predict_result())
     if model_name == "agg":
         Agg = agglomerative_cluster.agglomerative_cluster(data_set=data_set, features_list=feature_list, label=label,
                                                           n_clusters=5,
@@ -47,6 +48,7 @@ def train_model(model_name="km"):
         Agg.save_model(model_path="../models/model_agg.pkl")
         Agg.load_model(model_path="../models/model_agg.pkl")
         Agg.predict()
+        Agg.visualize()
         print(Agg.get_model_brief())
         print(Agg.get_predict_result())
 
@@ -54,7 +56,7 @@ def train_model(model_name="km"):
 def main():
     # stock_calculator.calculate_return_rate(day_slot=90)
     # stock_calculator.calculate_basic_eps()
-    train_model(model_name="agg")
+    train_model(model_name="km")
 
 
 if __name__ == "__main__":

@@ -10,10 +10,18 @@
 """
 
 import joblib
+
 import pandas
+
+from matplotlib import pyplot
+from scipy.cluster import hierarchy
 from sklearn.cluster import AgglomerativeClustering
 
+
 from source.interface import model_interface
+
+pandas.set_option('display.max_rows', None)
+pandas.set_option('display.max_columns', None)
 
 
 class agglomerative_cluster(model_interface.model_interface):
@@ -80,10 +88,13 @@ class agglomerative_cluster(model_interface.model_interface):
         else:
             self.predict()
             return self._predict_result
-# data_set = pandas.read_csv("Documents/cluster_dataset.csv")
-# data_set = data_set.set_index(["StockName"])
-# dt = data_set.iloc[:, 1:]
-# test = AGRClassifier()
-# test.train(dt.values)
-# test.predict()
-# dt['labels'] = test.get_predict_result()
+
+    def visualize(self):
+        self.predict()
+        features = self._data_set[self._features_list + ['cluster_label']]
+        data_linkage = hierarchy.linkage(features, method='ward')
+        hierarchy.dendrogram(data_linkage)
+        pyplot.savefig(fname="../model_diagrams/model_agg.pdf")
+        # pyplot.show()
+
+

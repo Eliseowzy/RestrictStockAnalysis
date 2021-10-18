@@ -9,15 +9,23 @@
 @version: 1.0
 """
 import joblib
+import numpy
 import pandas
+import seaborn
+from matplotlib import pyplot
 from sklearn.cluster import KMeans
 
 from source.interface import model_interface
 
+pandas.set_option('display.max_rows', None)
+pandas.set_option('display.max_columns', None)
+pyplot.rcParams['font.sans-serif'] = ['SimHei']  # 用来正常显示中文标签
+pyplot.rcParams['axes.unicode_minus'] = False  # 用来正常显示负号
+
 
 class k_means(model_interface.model_interface):
     def __init__(self, data_set: pandas.DataFrame = "", features_list: list = None, label: str = "", init='random',
-                 n_clusters=8, max_iter=1000, n_init=100,
+                 n_clusters=8, max_iter=100, n_init=100,
                  min_sse=10000000000000000):
         """k_means class construction function.
 
@@ -105,5 +113,16 @@ class k_means(model_interface.model_interface):
         self._model_brief["max_iter"] = str(self._max_iter)
         self._model_brief["n_clusters"] = str(self._n_clusters)
         self._model_brief["n_init"] = str(self._n_init)
-        print(self._model_brief)
-        print("=======================")
+
+    def model_selection(self):
+        model_scores = [KMeans(n_clusters=i + 2).fit(self._data_set[self._features_list]).inertia_ for i in
+                        range(self._max_iter)]
+        cluster_cont = numpy.arange(2, self._max_iter + 2)
+        seaborn.lineplot(cluster_cont, model_scores)
+        print(cluster_cont)
+        print(model_scores)
+        pyplot.xlabel('迭代轮数')
+        pyplot.ylabel("惯性系数")
+        pyplot.title("K-Means：惯性系数-类别数量")
+        pyplot.savefig(fname="../model_diagrams/model_selection_kmeans.pdf")
+        # pyplot.show()
