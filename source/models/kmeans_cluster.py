@@ -16,7 +16,7 @@ from source.interface import model_interface
 
 
 class k_means(model_interface.model_interface):
-    def __init__(self, data_set: pandas.DataFrame = "", init='random', features_list: list = None, label: str = "",
+    def __init__(self, data_set: pandas.DataFrame = "", features_list: list = None, label: str = "", init='random',
                  n_clusters=8, max_iter=1000, n_init=100,
                  min_sse=10000000000000000):
         """k_means class construction function.
@@ -90,9 +90,20 @@ class k_means(model_interface.model_interface):
                 by='cluster_label', ascending="False")
             self._predict_result = dataset[[self._label, 'cluster_label']]
 
-    def save_model(self, model_path="../../models/model.pkl"):
+    def save_model(self, model_path="../../models/km_model.pkl"):
         joblib.dump(self._model_object, model_path)
 
-    def load_model(self, model_path="../../models/model.pkl"):
+    def load_model(self, model_path="../../models/km_model.pkl"):
         self._model_object = None
         self._model_object = joblib.load(model_path)
+        self._init = self._model_object.init
+        self._max_iter = self._model_object.max_iter
+        self._n_clusters = self._model_object.n_clusters
+        self._n_init = self._model_object.n_init
+
+        self._model_brief["init"] = str(self._init)
+        self._model_brief["max_iter"] = str(self._max_iter)
+        self._model_brief["n_clusters"] = str(self._n_clusters)
+        self._model_brief["n_init"] = str(self._n_init)
+        print(self._model_brief)
+        print("=======================")
