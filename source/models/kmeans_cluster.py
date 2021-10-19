@@ -12,9 +12,11 @@ import joblib
 import numpy
 import pandas
 import seaborn
+from matplotlib import animation
 from matplotlib import pyplot
 from sklearn.cluster import KMeans
 from sklearn.decomposition import PCA
+from sklearn.manifold import TSNE
 
 from source.interface import model_interface
 
@@ -30,8 +32,33 @@ def _prepare_pca(components_count=3, data: pandas.DataFrame = None, kmeans_label
     df_matrix = pandas.DataFrame(matrix)
     df_matrix.rename({i: names[i] for i in range(components_count)}, axis=1, inplace=True)
     df_matrix['labels'] = kmeans_labels
-
     return df_matrix
+
+
+def _prepare_tsne(dimension=3, data: pandas.DataFrame = "", kmeans_labels: list = ""):
+    names = ['x', 'y', 'z']
+    matrix = TSNE(n_components=dimension, init='pca').fit_transform(data)
+    df_matrix = pandas.DataFrame(matrix)
+    df_matrix.rename({i: names[i] for i in range(dimension)}, axis=1, inplace=True)
+    df_matrix['labels'] = kmeans_labels
+    return df_matrix
+
+
+# def _plot_animation(tsne_3d_df, label_column, name):
+#     def update(num):
+#         ax.view_init(200, num)
+#
+#     N = 360
+#     fig = pyplot.figure()
+#     ax = fig.add_subplot(111, projection='3d')
+#     ax.scatter(tsne_3d_df['x'], tsne_3d_df['y'], tsne_3d_df['z'], c=tsne_3d_df[label_column],
+#                s=6, depthshade=True, cmap='Paired')
+#     ax.set_zlim(-15, 25)
+#     ax.set_xlim(-20, 20)
+#     pyplot.tight_layout()
+#     ani = animation.FuncAnimation(fig, update, N, blit=False, interval=50)
+#     ani.save('{}.gif'.format(name), writer='imagemagick')
+#     pyplot.show()
 
 
 class k_means(model_interface.model_interface):
@@ -133,7 +160,7 @@ class k_means(model_interface.model_interface):
         seaborn.lineplot(cluster_cont, model_scores)
         print(cluster_cont)
         print(model_scores)
-        pyplot.xlabel('迭代轮数')
+        pyplot.xlabel('类别数量')
         pyplot.ylabel("惯性系数")
         pyplot.title("K-Means：惯性系数-类别数量")
         pyplot.savefig(fname=diagram_name)
@@ -145,5 +172,26 @@ class k_means(model_interface.model_interface):
                               kmeans_labels=self._model_object.labels_)
         seaborn.scatterplot(x=pca_df.x, y=pca_df.y, hue=pca_df.labels, palette="Set1")
         # pyplot.show()
-        pyplot.savefig(fname=scatter_name)
+        pyplot.savefig(fname=scatter_name, tansprint=True)
+        pyplot.close()
+
+    def draw_pca_3d_scatter(self, scatter_name="../model_diagrams/pca_scatter_3d.gif"):
+        tsne_pca_df_3d = _prepare_tsne(dimension=3, data=self._data_set[self._features_list],
+                                       kmeans_labels=self._model_object.labels_)
+
+        def update(num):
+            ax.view_init(200, num)
+
+        N = 360
+        fig = pyplot.figure()
+        ax = fig.add_subplot(111, projection='3d')
+        ax.scatter(tsne_pca_df_3d['x'], tsne_pca_df_3d['y'], tsne_pca_df_3d['z'],
+                   c=tsne_pca_df_3d['labels'],
+                   s=6, depthshade=True, cmap='Paired')
+        ax.set_zlim(-15, 25)
+        ax.set_xlim(-20, 20)
+        pyplot.tight_layout()
+        ani = animation.FuncAnimation(fig, update, N, blit=False, interval=50)
+        ani.save(filename=scatter_name, writer='imagemagick')
+        pyplot.show()
         pyplot.close()

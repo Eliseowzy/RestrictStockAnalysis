@@ -14,13 +14,13 @@ import seaborn
 from matplotlib import pyplot
 
 
-def heatmap(dataframe: pandas.DataFrame):
+def heatmap(data_set: pandas.DataFrame, fontsize=20,heatmap_name="../model_diagrams/heatmap.pdf"):
     pyplot.figure(figsize=(15, 15))
-    seaborn.heatmap(data=dataframe.corr().round(2), annot=True, cmap='coolwarm', linewidths=0.2, square=True,
-                    annot_kws={"fontsize": 20})
-    pyplot.xticks(fontsize=20)
-    pyplot.yticks(fontsize=20)
-    pyplot.gcf().axes[-1].tick_params(labelsize=20)
-    pyplot.savefig("../model_diagrams/heatmap.svg")
+    seaborn.heatmap(data=data_set.corr().round(2), annot=True, cmap='coolwarm', linewidths=0.2, square=True,
+                    annot_kws={"fontsize": fontsize})
+    pyplot.xticks(fontsize=fontsize)
+    pyplot.yticks(fontsize=fontsize)
+    pyplot.gcf().axes[-1].tick_params(labelsize=fontsize)
+    pyplot.savefig(heatmap_name, transparent=True)
     # pyplot.show()
     pyplot.close()
