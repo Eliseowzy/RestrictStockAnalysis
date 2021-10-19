@@ -14,6 +14,7 @@ import pandas
 import seaborn
 from matplotlib import pyplot
 from sklearn.cluster import KMeans
+from sklearn.decomposition import PCA
 
 from source.interface import model_interface
 
@@ -21,6 +22,16 @@ pandas.set_option('display.max_rows', None)
 pandas.set_option('display.max_columns', None)
 pyplot.rcParams['font.sans-serif'] = ['SimHei']  # 用来正常显示中文标签
 pyplot.rcParams['axes.unicode_minus'] = False  # 用来正常显示负号
+
+
+def _prepare_pca(components_count=3, data: pandas.DataFrame = None, kmeans_labels=None):
+    names = ['x', 'y', 'z']
+    matrix = PCA(n_components=components_count).fit_transform(data)
+    df_matrix = pandas.DataFrame(matrix)
+    df_matrix.rename({i: names[i] for i in range(components_count)}, axis=1, inplace=True)
+    df_matrix['labels'] = kmeans_labels
+
+    return df_matrix
 
 
 class k_means(model_interface.model_interface):
@@ -115,7 +126,7 @@ class k_means(model_interface.model_interface):
         self._model_brief["n_clusters"] = str(self._n_clusters)
         self._model_brief["n_init"] = str(self._n_init)
 
-    def model_selection(self, max_cluster):
+    def draw_model_selection_diagram(self, max_cluster=20, diagram_name="../model_diagrams/model_selection_kmeans.svg"):
         model_scores = [KMeans(n_clusters=i + 2).fit(self._data_set[self._features_list]).inertia_ for i in
                         range(max_cluster)]
         cluster_cont = numpy.arange(2, self._max_iter + 2)
@@ -125,5 +136,14 @@ class k_means(model_interface.model_interface):
         pyplot.xlabel('迭代轮数')
         pyplot.ylabel("惯性系数")
         pyplot.title("K-Means：惯性系数-类别数量")
-        pyplot.savefig(fname="../model_diagrams/model_selection_kmeans.pdf")
+        pyplot.savefig(fname=diagram_name)
         # pyplot.show()
+        pyplot.close()
+
+    def draw_pca_scatter(self, components_count=3, scatter_name="../model_diagrams/pca_scatter.svg"):
+        pca_df = _prepare_pca(components_count=components_count, data=self._data_set[self._features_list],
+                              kmeans_labels=self._model_object.labels_)
+        seaborn.scatterplot(x=pca_df.x, y=pca_df.y, hue=pca_df.labels, palette="Set1")
+        # pyplot.show()
+        pyplot.savefig(fname=scatter_name)
+        pyplot.close()

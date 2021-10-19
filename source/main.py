@@ -23,7 +23,7 @@ def get_basic_eps():
     stock_calculator.calculate_basic_eps()
 
 
-def train_model(model_name="km"):
+def train_model(model_name: str = ""):
     data_set = data_loader.load_dataframe_from_csv("../data/cluster_dataset.csv")
     feature_list = ['release_feature', 'release_ratio', '6d_return', '10d_return',
                     '16d_return', '20d_return', '30d_return',
@@ -38,8 +38,10 @@ def train_model(model_name="km"):
         KMeans.train()
         KMeans.save_model(model_path="../models/model_kmeans.pkl")
         KMeans.load_model(model_path="../models/model_kmeans.pkl")
+
         # KMeans.predict()
-        # KMeans.model_selection(max_cluster=20)
+        KMeans.draw_model_selection_diagram(max_cluster=20, diagram_name="../model_diagrams/model_selection_kmeans.svg")
+        KMeans.draw_pca_scatter(components_count=3, scatter_name="../model_diagrams/pca_scatter.svg")
         print(KMeans.get_model_brief())
         print(KMeans.get_predict_result())
     if model_name == "agg":
@@ -50,7 +52,7 @@ def train_model(model_name="km"):
         Agg.save_model(model_path="../models/model_agg.pkl")
         Agg.load_model(model_path="../models/model_agg.pkl")
         Agg.predict()
-        Agg.visualize()
+        Agg.draw_hierarchy_diagram()
         print(Agg.get_model_brief())
         print(Agg.get_predict_result())
 
@@ -59,6 +61,7 @@ def main():
     # stock_calculator.calculate_return_rate(day_slot=90)
     # stock_calculator.calculate_basic_eps()
     train_model(model_name="km")
+    # train_model()
 
 
 if __name__ == "__main__":

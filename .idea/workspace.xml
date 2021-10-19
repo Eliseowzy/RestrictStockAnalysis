@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3a4a9686-1cd2-464b-9ddf-2d1434737671" name="Default Changelist" comment="add model selection module in K-Means.">
-      <change afterPath="$PROJECT_DIR$/source/utils/data_visualizer.py" afterDir="false" />
+    <list default="true" id="3a4a9686-1cd2-464b-9ddf-2d1434737671" name="Default Changelist" comment="add visualize module.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/data_result.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/data/data_result.xlsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/聚类数据集.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/data/聚类数据集.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model_diagrams/heatmap.svg" beforeDir="false" afterPath="$PROJECT_DIR$/model_diagrams/heatmap.svg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models/model_kmeans.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/models/model_kmeans.pkl" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/source/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/source/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/models/agglomerative_cluster.py" beforeDir="false" afterPath="$PROJECT_DIR$/source/models/agglomerative_cluster.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/source/models/kmeans_cluster.py" beforeDir="false" afterPath="$PROJECT_DIR$/source/models/kmeans_cluster.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/source/utils/data_preprocessor.py" beforeDir="false" afterPath="$PROJECT_DIR$/source/utils/data_preprocessor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/utils/data_visualizer.py" beforeDir="false" afterPath="$PROJECT_DIR$/source/utils/data_visualizer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/utils/unit_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/source/utils/unit_test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -199,7 +201,8 @@
       <workItem from="1634257578186" duration="4380000" />
       <workItem from="1634285721207" duration="2898000" />
       <workItem from="1634358656222" duration="607000" />
-      <workItem from="1634516614120" duration="15802000" />
+      <workItem from="1634516614120" duration="21284000" />
+      <workItem from="1634608257016" duration="947000" />
     </task>
     <task id="LOCAL-00001" summary="修改文件夹路径">
       <created>1632963294908</created>
@@ -299,7 +302,14 @@
       <option name="project" value="LOCAL" />
       <updated>1634536214302</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="add visualize module.">
+      <created>1634539071156</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1634539071156</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -325,13 +335,14 @@
     <MESSAGE value="add kmeans module; load model, save model" />
     <MESSAGE value="add agglomerative_cluster module" />
     <MESSAGE value="add model selection module in K-Means." />
-    <option name="LAST_COMMIT_MESSAGE" value="add model selection module in K-Means." />
+    <MESSAGE value="add visualize module." />
+    <option name="LAST_COMMIT_MESSAGE" value="add visualize module." />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/RestrictStockAnalysis$stock_index_extracter.coverage" NAME="stock_index_extracter Coverage Results" MODIFIED="1634210034424" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/source/utils" />
     <SUITE FILE_PATH="coverage/RestrictStockAnalysis$excel_config.coverage" NAME="excel_config Coverage Results" MODIFIED="1634210071663" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/source/utils" />
-    <SUITE FILE_PATH="coverage/RestrictStockAnalysis$main.coverage" NAME="main Coverage Results" MODIFIED="1634538777550" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/source" />
-    <SUITE FILE_PATH="coverage/RestrictStockAnalysis$unit_test.coverage" NAME="unit_test Coverage Results" MODIFIED="1634535461729" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/source/utils" />
+    <SUITE FILE_PATH="coverage/RestrictStockAnalysis$main.coverage" NAME="main Coverage Results" MODIFIED="1634609177010" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/source" />
+    <SUITE FILE_PATH="coverage/RestrictStockAnalysis$unit_test.coverage" NAME="unit_test Coverage Results" MODIFIED="1634607119318" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/source/utils" />
     <SUITE FILE_PATH="coverage/RestrictStockAnalysis$stock_calculator.coverage" NAME="stock_calculator Coverage Results" MODIFIED="1634266339762" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/source/utils" />
     <SUITE FILE_PATH="coverage/RestrictStockAnalysis$data_loader.coverage" NAME="data_loader Coverage Results" MODIFIED="1634209024501" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/source/utils" />
     <SUITE FILE_PATH="coverage/RestrictStockAnalysis$kmeans_cluster.coverage" NAME="kmeans_cluster Coverage Results" MODIFIED="1634282497701" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/source/models" />

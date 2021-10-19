@@ -89,12 +89,13 @@ class agglomerative_cluster(model_interface.model_interface):
             self.predict()
             return self._predict_result
 
-    def visualize(self):
+    def draw_hierarchy_diagram(self):
         self.predict()
         features = self._data_set[self._features_list + ['cluster_label']]
         data_linkage = hierarchy.linkage(features, method='ward')
         hierarchy.dendrogram(data_linkage)
         pyplot.savefig(fname="../model_diagrams/model_agg.pdf")
         # pyplot.show()
+        pyplot.close()
 
 
