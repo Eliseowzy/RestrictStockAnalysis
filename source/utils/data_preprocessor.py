@@ -36,5 +36,3 @@ def get_list_by_column(file_path='dataset.xlsx', column_name='代码'):
         return stock_code_list
     else:
         return None
-
-

@@ -22,8 +22,8 @@ from source.interface import model_interface
 
 pandas.set_option('display.max_rows', None)
 pandas.set_option('display.max_columns', None)
-pyplot.rcParams['font.sans-serif'] = ['SimHei']  # 用来正常显示中文标签
-pyplot.rcParams['axes.unicode_minus'] = False  # 用来正常显示负号
+pyplot.rcParams['font.sans-serif'] = ['SimHei']
+pyplot.rcParams['axes.unicode_minus'] = False
 
 
 def _prepare_pca(components_count=3, data: pandas.DataFrame = None, kmeans_labels=None):
@@ -69,7 +69,7 @@ class k_means(model_interface.model_interface):
 
         Args:
             data_set (pandas.DataFrame, optional): Dataset. Defaults to "".
-            init (str, optional): [description]. Defaults to 'random'.
+            init (str, optional): Initialize method for k_means. Defaults to 'random'.
             features_list (list, optional): [description]. Defaults to None.
             label (str, optional): [description]. Defaults to "".
             n_clusters (int, optional): Number of time the k-means algorithm will be run with different centroid seeds. The final results will be the best output of n_init consecutive runs in terms of inertia. Defaults to 8.
