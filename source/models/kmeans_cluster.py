@@ -5,7 +5,7 @@
 @author: Wang Zhiyi
 @function: implement models based on model interface
 @file: k_means_cluster.py
-@time: 14/10/2021
+@time: 20/10/2021
 @version: 1.0
 """
 import joblib
@@ -42,23 +42,6 @@ def _prepare_tsne(dimension=3, data: pandas.DataFrame = "", kmeans_labels: list 
     df_matrix.rename({i: names[i] for i in range(dimension)}, axis=1, inplace=True)
     df_matrix['labels'] = kmeans_labels
     return df_matrix
-
-
-# def _plot_animation(tsne_3d_df, label_column, name):
-#     def update(num):
-#         ax.view_init(200, num)
-#
-#     N = 360
-#     fig = pyplot.figure()
-#     ax = fig.add_subplot(111, projection='3d')
-#     ax.scatter(tsne_3d_df['x'], tsne_3d_df['y'], tsne_3d_df['z'], c=tsne_3d_df[label_column],
-#                s=6, depthshade=True, cmap='Paired')
-#     ax.set_zlim(-15, 25)
-#     ax.set_xlim(-20, 20)
-#     pyplot.tight_layout()
-#     ani = animation.FuncAnimation(fig, update, N, blit=False, interval=50)
-#     ani.save('{}.gif'.format(name), writer='imagemagick')
-#     pyplot.show()
 
 
 class k_means(model_interface.model_interface):

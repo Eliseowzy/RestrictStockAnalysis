@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-@author: Wu Junyi
+@author: Wu Junyi, Wang Zhiyi
 @function: implement models based on model interface
 @file: agglomerative_cluster.py
 @time: 14/10/2021

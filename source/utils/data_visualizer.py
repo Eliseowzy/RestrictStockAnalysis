@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-@author: Wang Zhiyi
+@author: Wang Zhiyi, Wu Junyi
 @function: data visualizer
 @file: data_visualizer.py
 @time: 18/10/2021
@@ -14,7 +14,7 @@ import seaborn
 from matplotlib import pyplot
 
 
-def heatmap(data_set: pandas.DataFrame, fontsize=20,heatmap_name="../model_diagrams/heatmap.pdf"):
+def heatmap(data_set: pandas.DataFrame, fontsize=20, heatmap_name="../model_diagrams/heatmap.pdf"):
     pyplot.figure(figsize=(15, 15))
     seaborn.heatmap(data=data_set.corr().round(2), annot=True, cmap='coolwarm', linewidths=0.2, square=True,
                     annot_kws={"fontsize": fontsize})
