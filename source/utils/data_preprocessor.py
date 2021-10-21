@@ -20,7 +20,6 @@ def get_list_by_column(file_path='dataset.xlsx', column_name='代码'):
     Returns:
         list 'code': A stock code list.
     """
-    # df = pd.read_csv(file_name, encoding=encoding)
     df = pd.read_excel(file_path)
     if ".xlsx" in file_path:
         data_loader.load_dataframe_from_excel(file_path)

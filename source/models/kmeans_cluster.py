@@ -147,14 +147,14 @@ class k_means(model_interface.model_interface):
         pyplot.ylabel("惯性系数")
         pyplot.title("K-Means：惯性系数-类别数量")
         pyplot.savefig(fname=diagram_name)
-        # pyplot.show()
+
         pyplot.close()
 
     def draw_pca_scatter(self, components_count=3, scatter_name="../model_diagrams/pca_scatter.svg"):
         pca_df = _prepare_pca(components_count=components_count, data=self._data_set[self._features_list],
                               kmeans_labels=self._model_object.labels_)
         seaborn.scatterplot(x=pca_df.x, y=pca_df.y, hue=pca_df.labels, palette="Set1")
-        # pyplot.show()
+
         pyplot.savefig(fname=scatter_name, tansprint=True)
         pyplot.close()
 

@@ -13,7 +13,6 @@ import pandas as pd
 
 def load_dataframe_from_csv(file_path="../../data/df.csv"):
     dataset = pd.read_csv(file_path)
-    # print(dataset)
     return dataset
 
 

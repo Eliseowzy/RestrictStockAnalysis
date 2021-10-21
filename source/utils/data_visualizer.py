@@ -22,5 +22,4 @@ def heatmap(data_set: pandas.DataFrame, fontsize=20, heatmap_name="../model_diag
     pyplot.yticks(fontsize=fontsize)
     pyplot.gcf().axes[-1].tick_params(labelsize=fontsize)
     pyplot.savefig(heatmap_name, transparent=True)
-    # pyplot.show()
     pyplot.close()

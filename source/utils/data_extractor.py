@@ -44,7 +44,7 @@ def get_stock_change_ratio(stock_code='301013.SZ', start_date='20210920', end_da
 
 
 def get_company_latest_basic_eps(stock_code="688662.SH"):
-    # 拉取数据
+    # 从拉取数据
     pro = ts.pro_api('312ec2805a662c9a5d199ac0f8bd6d6c38676e6d011a0432b47728e6')
     latest_basic_eps_info = pro.income(**{
         "ts_code": stock_code,
@@ -65,7 +65,6 @@ def get_company_latest_basic_eps(stock_code="688662.SH"):
     ])
     latest_basic_eps_info = latest_basic_eps_info.sort_values(by='ann_date', ascending=True)
     basic_eps = latest_basic_eps_info['basic_eps'][0]
-    # print(basic_eps)
     return basic_eps
 
 

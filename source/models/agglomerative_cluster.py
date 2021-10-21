@@ -95,7 +95,6 @@ class agglomerative_cluster(model_interface.model_interface):
         data_linkage = hierarchy.linkage(features, method='ward')
         hierarchy.dendrogram(data_linkage)
         pyplot.savefig(fname="../model_diagrams/model_agg.pdf")
-        # pyplot.show()
         pyplot.close()
 
 
